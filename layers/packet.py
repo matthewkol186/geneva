@@ -7,13 +7,15 @@ import layers.tcp_layer
 import layers.udp_layer
 import layers.dns_layer
 import layers.dnsqr_layer
+import layers.http_layer
 
 _SUPPORTED_LAYERS = [
     layers.ip_layer.IPLayer,
     layers.tcp_layer.TCPLayer,
     layers.udp_layer.UDPLayer,
     layers.dns_layer.DNSLayer,
-    layers.dnsqr_layer.DNSQRLayer
+    layers.dnsqr_layer.DNSQRLayer,
+    layers.http_layer.HTTPRequestLayer
 ]
 SUPPORTED_LAYERS = _SUPPORTED_LAYERS
 

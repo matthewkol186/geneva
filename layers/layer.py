@@ -6,6 +6,7 @@ import os
 import urllib.parse
 
 from scapy.all import IP, RandIP, UDP, DNS, DNSQR, Raw, TCP, fuzz
+from scapy.layers.http import HTTPRequest
 
 class Layer():
     """
