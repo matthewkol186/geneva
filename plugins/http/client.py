@@ -99,14 +99,14 @@ class HTTPClient(ClientPlugin):
             s = requests.Session()
             res = s.send(req, timeout=3)
             logger.debug(res.text)
+            logger.debug(f"\n\n--------------\n{res.text}\n-------------\n\n")
+            logger.debug(f"\n\n--------------\n{correct_response}\n-------------\n\n")
             # If we need to monitor for an injected response, check that here
             if injected_http and injected_http in res.text:
                 fitness -= 90
             else:
                 if res.text == correct_response:
                     fitness += 100
-                    logger.debug(f"\n\n--------------\n{res.text}\n-------------\n\n")
-                    logger.debug(f"\n\n--------------\n{correct_response}\n-------------\n\n")
                 else:
                     fitness -= 90
         except requests.exceptions.ConnectTimeout as exc:
