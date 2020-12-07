@@ -1,0 +1,213 @@
+usage: evolve.py
+                 [--test-type {discard,echo,sni,esni,airtel_sni,smtp,http,dns}]
+                 [-h] [--in-trees IN_TREES] [--out-trees OUT_TREES]
+                 [--in-actions IN_ACTIONS] [--out-actions OUT_ACTIONS]
+                 [--fix-trigger FIX_TRIGGER] [--load-from LOAD_FROM]
+                 [--seed SEED] [--eval-only EVAL_ONLY] [--no-eval]
+                 [--runs RUNS] [--elite-clones ELITE_CLONES]
+                 [--mutation-pb MUTATION_PB] [--crossover-pb CROSSOVER_PB]
+                 [--allowed-retries ALLOWED_RETRIES]
+                 [--generations GENERATIONS] [--population POPULATION]
+                 [--no-reject-empty] [--no-canary] [--protos PROTOS]
+                 [--fields FIELDS] [--disable-fields DISABLE_FIELDS]
+                 [--no-gas] [--disable-action DISABLE_ACTION]
+                 [--log {debug,info,warning,critical,error}] [--no-print-hall]
+                 [--graph-trees] [--no-lock-file] [--force-cleanup]
+
+Genetic algorithm for evolving censorship evasion. evolve.py uses a pass-
+through argument system to pass the command line arguments through different
+files in the system, including the evaluator (evaluator.py) and a given plugin
+(plugins/). --help will collect all these arguments.
+
+optional arguments:
+  --test-type {discard,echo,sni,esni,airtel_sni,smtp,http,dns}
+                        plugin to launch
+  -h, --help            print this help message and exit
+
+control aspects of individual strategies:
+  --in-trees IN_TREES   starting # of input-direction action trees per
+                        strategy. Disables inbound forest if set to 0
+  --out-trees OUT_TREES
+                        starting # of output-direction action trees per
+                        strategy
+  --in-actions IN_ACTIONS
+                        starting # of input-direction actions per action tree
+  --out-actions OUT_ACTIONS
+                        starting # of output-direction actions per action tree
+  --fix-trigger FIX_TRIGGER
+                        fix all triggers for this evolution to a given trigger
+
+control aspects of the population pool:
+  --load-from LOAD_FROM
+                        Load population from a generation file
+  --seed SEED           seed strategy to initialize the population to.
+
+control aspects of strategy evaluation:
+  --eval-only EVAL_ONLY
+                        only evaluate fitness for a given strategy or file of
+                        strategies
+  --no-eval             Disable evaluator for debugging
+  --runs RUNS           number of times each strategy should be run for one
+                        evaluation (default 1, fitness is averaged).
+
+control aspects of the genetic algorithm:
+  --elite-clones ELITE_CLONES
+                        number copies of the highest performing individual
+                        that should be propagated to the next generation.
+  --mutation-pb MUTATION_PB
+                        mutation probability
+  --crossover-pb CROSSOVER_PB
+                        crossover probability
+  --allowed-retries ALLOWED_RETRIES
+                        maximum number of times GA will generate any given
+                        individual
+  --generations GENERATIONS
+                        number of generations to run for.
+  --population POPULATION
+                        size of population.
+  --no-reject-empty     disable mutation rejection of empty strategies
+  --no-canary           disable canary phase
+
+limit access to certain protocols, fields, actions, or types of individuals:
+  --protos PROTOS       allow the GA to scope only to these protocols
+  --fields FIELDS       restrict the GA to only seeing given fields
+  --disable-fields DISABLE_FIELDS
+                        restrict the GA to never using given fields
+  --no-gas              disables trigger gas
+  --disable-action DISABLE_ACTION
+                        disables specific actions
+
+control logging:
+  --log {debug,info,warning,critical,error}
+                        Sets the log level
+  --no-print-hall       does not print hall of fame at the end
+  --graph-trees         graph trees in addition to outputting to screen
+
+misc usage:
+  --no-lock-file        does not use /lock_file.txt
+  --force-cleanup       cleans up all docker containers and networks after
+                        evolution
+See the README.md for usage.
+====================================================================================================
+
+evolve.py uses a pass-through argument system to evaluator.py and other parts of Geneva. These arguments are below.
+
+
+usage: evaluator.py [-h]
+                    [--test-type {discard,echo,sni,esni,airtel_sni,smtp,http,dns}]
+                    --strategy STRATEGY
+                    [--log {debug,info,warning,critical,error}]
+                    [--output-directory OUTPUT_DIRECTORY] [--log-on-fail]
+                    [--log-on-success] [--external-server]
+                    [--external-client EXTERNAL_CLIENT] [--server-side]
+                    [--public-ip PUBLIC_IP] [--routing-ip ROUTING_IP]
+                    [--sender-ip SENDER_IP] [--forward-ip FORWARD_IP]
+                    [--act-as-middlebox] [--port PORT]
+                    [--censor {censor9,censor12,censor11,censor8,censor5,censor4,censor13,censor6,dummy,censor8b,censor7,censor10,censor2,censor3,censor1}]
+                    [--workers WORKERS] [--bad-word BAD_WORD] [--runs RUNS]
+                    [--fitness-by {min,avg,max}] [--no-skip-empty]
+
+Evaluate a given strategy a given number of times.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --test-type {discard,echo,sni,esni,airtel_sni,smtp,http,dns}
+                        plugin to launch
+  --strategy STRATEGY   strategy to evaluate
+
+control aspects of evaluator logging and storage:
+  --log {debug,info,warning,critical,error}
+                        Sets the log level
+  --output-directory OUTPUT_DIRECTORY
+                        where to output results
+  --log-on-fail         dump the logs associated with each individual on
+                        strategy failure
+  --log-on-success      dump the logs associated with each individual on
+                        strategy success
+
+control aspects of external resource usage:
+  --external-server     use an external server for testing.
+  --external-client EXTERNAL_CLIENT
+                        use the given external client for testing.
+
+control aspects of evaluator networking configuration:
+  --server-side         run the Geneva engine on the server side, not the
+                        client
+  --public-ip PUBLIC_IP
+                        public facing IP for this computer for server-side
+                        evaluation.
+  --routing-ip ROUTING_IP
+                        locally facing IP for this computer, used for NAT
+  --sender-ip SENDER_IP
+                        IP address of sending machine, used for NAT
+  --forward-ip FORWARD_IP
+                        IP address to forward traffic to
+  --act-as-middlebox    enables NAT mode. Requires --routing-ip, --sender-ip,
+                        and --forward-ip
+  --port PORT           default port to use
+
+control aspects of docker-specific options:
+  --censor {censor9,censor12,censor11,censor8,censor5,censor4,censor13,censor6,dummy,censor8b,censor7,censor10,censor2,censor3,censor1}
+                        censor to test against.
+  --workers WORKERS     controls the number of docker containers the evaluator
+                        will use.
+  --bad-word BAD_WORD   forbidden word to test with
+
+control aspects of evaluation:
+  --runs RUNS           number of times each individual should be run per
+                        evaluation
+  --fitness-by {min,avg,max}
+                        if each individual is run multiple times, control how
+                        fitness is assigned.
+  --no-skip-empty       evaluate empty strategies (default: False).
+
+
+
+====================================================================================================
+Options for --test-type http parent plugin
+usage: evolve.py [-h] [--disable-port-negotiation] [--use-external-sites]
+                 [--environment-id ENVIRONMENT_ID]
+                 [--output-directory OUTPUT_DIRECTORY] [--port PORT]
+
+HTTP plugin runner
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --disable-port-negotiation
+                        disables port negotiation between remote client and
+                        local server
+  --use-external-sites  draw from the pool of external servers (defined in
+                        external_sites.py) for testing.
+  --environment-id ENVIRONMENT_ID
+                        ID of the current environment
+  --output-directory OUTPUT_DIRECTORY
+                        Where to output results
+  --port PORT           port to use
+
+
+
+====================================================================================================
+Options for --test-type http client
+usage: http/client.py [-h] [--host-header HOST_HEADER]
+                      [--injected-http-contains INJECTED_HTTP_CONTAINS]
+
+HTTP Client
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --host-header HOST_HEADER
+                        specifies host header for HTTP request
+  --injected-http-contains INJECTED_HTTP_CONTAINS
+                        checks if injected http response contains string
+
+
+
+====================================================================================================
+Options for --test-type http server
+usage: evolve.py [-h] [--port PORT]
+
+HTTP Server
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --port PORT  port to run this server on
