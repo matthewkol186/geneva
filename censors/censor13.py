@@ -91,12 +91,10 @@ class Censor13(Censor):
             # Check if any forbidden words appear in the packet payload
             payload_words = self.get_payload(packet).split(" ".encode('utf-8'))
             index = -1
-            for method in [w.encode('utf-8') for w in ["POST", "GET", "PUT", "DELETE"]]:
-                try:
-                    index = payload_words.index(method)
-                    break
-                except ValueError:
-                    pass
+            try:
+                index = payload_words.index("GET".encode('utf-8'))
+            except ValueError:
+                pass
             if index + 1 < len(payload_words):
                 for keyword in self.forbidden:
                     if keyword in payload_words[index+1]:
@@ -105,7 +103,7 @@ class Censor13(Censor):
 
             return False
         except Exception:
-            self.logger.exception("Exception caught by Censor 10")
+            self.logger.exception("Exception caught by Censor 13")
             return False
 
     def censor(self, scapy_packet):

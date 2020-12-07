@@ -1,0 +1,186 @@
+2020-12-05 13:59:22 DEBUG:Launching strategy evolution: --eval-only [TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-| \/ test-type http --censor censor13 --log debug
+2020-12-05 13:59:22 INFO:Logging results to trials/2020-12-05_13:59:21/logs
+2020-12-05 13:59:22 DEBUG:Initializing docker environment.
+2020-12-05 13:59:38 DEBUG:Launching http plugin (run 1) for [TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-| \/ 
+2020-12-05 13:59:38 DEBUG:docker exec --privileged server_main netstat -ano
+2020-12-05 13:59:38 DEBUG:Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+
+2020-12-05 13:59:38 DEBUG:Testing if port 80 is open in the docker container
+2020-12-05 13:59:38 DEBUG:Using port 80
+2020-12-05 13:59:38 DEBUG:Running standalone plugin.
+2020-12-05 13:59:38 DEBUG:Evaluator: running server inside docker
+2020-12-05 13:59:38 DEBUG: Starting censor censor13 with driver
+2020-12-05 13:59:38 DEBUG:docker exec --privileged censor_main python code/censors/censor_driver.py --censor censor13 --environment-id 95tj9lkv --output-directory trials/2020-12-05_13:59:21 --port 30617 --log debug --forbidden ultrasurf --queue 923
+2020-12-05 13:59:38 DEBUG:docker exec --privileged server_main python code/plugins/plugin_server.py --test-type http --test-type http --strategy  --log debug --output-directory trials/2020-12-05_13:59:21 --port 30617 --censor censor13 --workers 1 --bad-word ultrasurf --runs 1 --fitness-by avg --wait-for-shutdown --environment-id 95tj9lkv --no-engine
+2020-12-05 13:59:38 DEBUG:Evaluator waiting for confirmation of server startup
+2020-12-05 18:59:43 DEBUG:[SERVER] Launching http server
+2020-12-05 18:59:43 DEBUG:[SERVER] Sniffer starting to port 30617
+2020-12-05 18:59:43 DEBUG:[SERVER] Monitoring for server startup on port 30617
+2020-12-05 18:59:43 DEBUG:[SERVER] Waiting for server port binding
+2020-12-05 18:59:43 DEBUG:[CENSOR] Censor created to port 30617 on queue 923
+2020-12-05 18:59:43 DEBUG:[CENSOR] Censor initializing.
+2020-12-05 18:59:43 DEBUG:[CENSOR] Censor iptables added
+2020-12-05 18:59:43 DEBUG:[CENSOR] Censor binding
+2020-12-05 18:59:43 DEBUG:[CENSOR] Censor bound
+2020-12-05 18:59:44 DEBUG:[SERVER] Server ready.
+2020-12-05 13:59:44 DEBUG:Evaluator: Server ready.
+2020-12-05 13:59:44 DEBUG:docker exec --privileged client_main python code/plugins/plugin_client.py --server 172.17.0.4 --test-type http --strategy "[TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-| \/ " --log debug --output-directory trials/2020-12-05_13:59:21 --port 30617 --censor censor13 --workers 1 --bad-word ultrasurf --runs 1 --fitness-by avg --server 172.17.0.4 --wait-for-censor --host-header '' --injected-http-contains '' --environment-id 95tj9lkv
+2020-12-05 18:59:47 DEBUG:[CLIENT] Launching http
+2020-12-05 18:59:47 DEBUG:[CLIENT] Sniffer starting to port 30617
+2020-12-05 18:59:47 DEBUG:[ENGINE] Engine created with strategy [TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-| \/ (ID 95tj9lkv) to port 30617
+2020-12-05 18:59:47 DEBUG:[ENGINE] Configuring iptables rules
+2020-12-05 18:59:47 DEBUG:[ENGINE] iptables -A OUTPUT -p tcp --dport 30617 -j NFQUEUE --queue-num 2
+2020-12-05 18:59:47 DEBUG:[ENGINE] iptables -A INPUT -p tcp --sport 30617 -j NFQUEUE --queue-num 1
+2020-12-05 18:59:47 DEBUG:[ENGINE] iptables -A OUTPUT -p udp --dport 30617 -j NFQUEUE --queue-num 2
+2020-12-05 18:59:47 DEBUG:[ENGINE] iptables -A INPUT -p udp --sport 30617 -j NFQUEUE --queue-num 1
+2020-12-05 18:59:47 DEBUG:[ENGINE] NFQueue Initialized after 0
+2020-12-05 18:59:47 DEBUG:[CENSOR] Writing ready file to /code/trials/2020-12-05_13:59:21/flags/95tj9lkv.censor_ready
+2020-12-05 18:59:47 DEBUG:[CLIENT] TCP 172.17.0.2:2222 --> 172.17.0.4:30617 [S] 57524: b'checking'
+2020-12-05 18:59:47 DEBUG:[CENSOR] Censor ready.
+2020-12-05 18:59:47 DEBUG:[CENSOR] Writing ready file to /code/trials/2020-12-05_13:59:21/flags/95tj9lkv.censor_ready
+2020-12-05 18:59:47 DEBUG:[CENSOR] Censor ready.
+2020-12-05 18:59:47 DEBUG:[CLIENT] TCP 172.17.0.2:2222 --> 172.17.0.4:30617 [S] 57524: b'checking'
+2020-12-05 18:59:47 DEBUG:[CLIENT] STARTING HTTP CLIENT....
+2020-12-05 18:59:47 DEBUG:[ENGINE] Received outbound packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [S] 33745: 
+2020-12-05 18:59:47 DEBUG:[ENGINE] Sending packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [S] 33745: 
+2020-12-05 18:59:47 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [S] 33745: 
+2020-12-05 18:59:47 DEBUG:[CENSOR] Making a new TCB for packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [S] 33745: 
+2020-12-05 18:59:47 DEBUG:[CENSOR] Synchronizing a TCB ({'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363305}) on packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [S] 33745:  
+2020-12-05 18:59:47 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [SA] 586: 
+2020-12-05 18:59:47 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363305} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [SA] 586: 
+2020-12-05 18:59:47 DEBUG:[CENSOR] No TCB matches packet.
+2020-12-05 18:59:47 DEBUG:[CLIENT] TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [S] 33745: 
+2020-12-05 18:59:47 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [SA] 586: 
+2020-12-05 18:59:47 DEBUG:[ENGINE] Received packet: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [SA] 586: 
+2020-12-05 18:59:47 DEBUG:[ENGINE] Received outbound packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11645: 
+2020-12-05 18:59:47 DEBUG:[ENGINE]  + out action tree triggered: [TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-|
+2020-12-05 18:59:47 DEBUG:[SERVER] TCP 172.17.0.3:54750 --> 172.17.0.4:30617 [S] 33744: 
+2020-12-05 18:59:47 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [SA] 22616: 
+2020-12-05 18:59:47 DEBUG:[ENGINE] Sending packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11645: 
+2020-12-05 18:59:47 DEBUG:[CLIENT] TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11645: 
+2020-12-05 18:59:47 DEBUG:[ENGINE] Received outbound packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [PA] 45930: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 18:59:47 DEBUG:[ENGINE]  + out action tree triggered: [TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-|
+2020-12-05 18:59:47 DEBUG:[ENGINE]   - Tampering TCP field `load` (GET%20/%3Fq%3Dultrasurf%20HTTP/1.1%0D%0AAccept-Encoding%3A%20identity%0D%0AHost%3A%20%27%27%0D%0A%0D%0A) by space_payload (to GET%20%20/%3Fq%3Dultrasurf%20HTTP/1.1%0D%0AAccept-Encoding%3A%20identity%0D%0AHost%3A%27%27%0D%0A%0D%0A)
+2020-12-05 18:59:47 DEBUG:[ENGINE] Sending packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [PA] None: b"GET  /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost:''\r\n\r\n"
+2020-12-05 18:59:47 DEBUG:[CLIENT] TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [PA] 5640: b"GET  /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost:''\r\n\r\n"
+2020-12-05 18:59:47 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11645: 
+2020-12-05 18:59:47 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363305} against packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11645: 
+2020-12-05 18:59:47 DEBUG:[SERVER] TCP 172.17.0.3:54750 --> 172.17.0.4:30617 [A] 11644: 
+2020-12-05 18:59:47 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [PA] 5640: b"GET  /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost:''\r\n\r\n"
+2020-12-05 18:59:47 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363305} against packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [PA] 5640: b"GET  /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost:''\r\n\r\n"
+2020-12-05 18:59:48 DEBUG:[SERVER] TCP 172.17.0.3:54750 --> 172.17.0.4:30617 [PA] 5639: b"GET  /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost:''\r\n\r\n"
+2020-12-05 18:59:48 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [A] 22608: 
+2020-12-05 18:59:48 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [PA] 22763: b'HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.6.12\r\nDate: Sat, 05 Dec 2020 18:59:48 GMT\r\nContent-type: text/html; charset=utf-8\r\nContent-Length: 321\r\n\r\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 11486: 
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 11486: 
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 11486:  for partial match
+2020-12-05 18:59:48 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [FPA] 22929: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Making a new TCB for packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 11486: 
+2020-12-05 18:59:48 DEBUG:[CENSOR] Synchronizing a TCB ({'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102885595}) on packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 11486:  
+2020-12-05 18:59:48 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [PA] 22435: b'HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.6.12\r\nDate: Sat, 05 Dec 2020 18:59:48 GMT\r\nContent-type: text/html; charset=utf-8\r\nContent-Length: 321\r\n\r\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [PA] 22435: b'HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.6.12\r\nDate: Sat, 05 Dec 2020 18:59:48 GMT\r\nContent-type: text/html; charset=utf-8\r\nContent-Length: 321\r\n\r\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102885595} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [PA] 22435: b'HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.6.12\r\nDate: Sat, 05 Dec 2020 18:59:48 GMT\r\nContent-type: text/html; charset=utf-8\r\nContent-Length: 321\r\n\r\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58959: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58959: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102885750} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58959: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 11486: 
+2020-12-05 18:59:48 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [PA] 22435: b'HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.6.12\r\nDate: Sat, 05 Dec 2020 18:59:48 GMT\r\nContent-type: text/html; charset=utf-8\r\nContent-Length: 321\r\n\r\n'
+2020-12-05 18:59:48 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58959: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[ENGINE] Received packet: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 11486: 
+2020-12-05 18:59:48 DEBUG:[ENGINE] Received packet: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [PA] 22435: b'HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.6.12\r\nDate: Sat, 05 Dec 2020 18:59:48 GMT\r\nContent-type: text/html; charset=utf-8\r\nContent-Length: 321\r\n\r\n'
+2020-12-05 18:59:48 DEBUG:[ENGINE] Received outbound packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11187: 
+2020-12-05 18:59:48 DEBUG:[ENGINE]  + out action tree triggered: [TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-|
+2020-12-05 18:59:48 DEBUG:[ENGINE] Sending packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11187: 
+2020-12-05 18:59:48 DEBUG:[ENGINE] Received packet: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58959: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CLIENT] <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /?q=ultrasurf</title>
+</head>
+<body>
+<h1>Directory listing for /?q=ultrasurf</h1>
+<hr>
+<ul>
+</ul>
+<hr>
+</body>
+</html>
+
+2020-12-05 18:59:48 DEBUG:[CLIENT] Plugin client has finished.
+2020-12-05 18:59:48 DEBUG:[CLIENT] Initiating fitness adjustment
+2020-12-05 18:59:48 DEBUG:[CLIENT] Punishing for complexity: 1
+2020-12-05 18:59:48 DEBUG:[CLIENT] Punishing for unused actions
+2020-12-05 18:59:48 DEBUG:[CLIENT]  - Number of unused actions in out forest: 0
+2020-12-05 18:59:48 DEBUG:[CLIENT]  - Number of unused actions in in forest: 0
+2020-12-05 18:59:48 DEBUG:[CLIENT] Punishing for overhead: 0
+2020-12-05 18:59:48 DEBUG:[ENGINE] Shutting down NFQueue
+2020-12-05 18:59:48 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11187: 
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11187: 
+2020-12-05 18:59:48 DEBUG:[SERVER] TCP 172.17.0.3:54750 --> 172.17.0.4:30617 [A] 11186: 
+2020-12-05 18:59:48 DEBUG:[CLIENT] TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 11187: 
+2020-12-05 18:59:48 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58453: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58453: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886071} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58453: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [FPA] 22929: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] No TCB matches packet.
+2020-12-05 18:59:48 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58453: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [FPA] 22929: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58137: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58137: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886071} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58137: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:48 DEBUG:[CENSOR] No TCB matches packet.
+2020-12-05 18:59:48 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 58137: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:49 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 57556: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:49 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [FPA] 22929: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:49 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 57556: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:49 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886071} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 57556: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:49 DEBUG:[CENSOR] No TCB matches packet.
+2020-12-05 18:59:49 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 57556: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:50 DEBUG:[ENGINE] Configuring iptables rules
+2020-12-05 18:59:50 DEBUG:[ENGINE] iptables -D OUTPUT -p tcp --dport 30617 -j NFQUEUE --queue-num 2
+2020-12-05 18:59:50 DEBUG:[ENGINE] iptables -D INPUT -p tcp --sport 30617 -j NFQUEUE --queue-num 1
+2020-12-05 18:59:50 DEBUG:[ENGINE] iptables -D OUTPUT -p udp --dport 30617 -j NFQUEUE --queue-num 2
+2020-12-05 18:59:50 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [FPA] 22929: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:50 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 56407: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 56407: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886071} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 56407: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:50 DEBUG:[CENSOR] No TCB matches packet.
+2020-12-05 18:59:50 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [FA] 6051: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [FA] 6051: 
+2020-12-05 18:59:50 DEBUG:[ENGINE] iptables -D INPUT -p udp --sport 30617 -j NFQUEUE --queue-num 1
+2020-12-05 18:59:50 DEBUG:[CENSOR] Entering resynchronization state on packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [FA] 6051: 
+2020-12-05 18:59:50 DEBUG:[SERVER] TCP 172.17.0.3:54750 --> 172.17.0.4:30617 [FA] 6050: 
+2020-12-05 18:59:50 DEBUG:[SERVER] TCP 172.17.0.4:30617 --> 172.17.0.3:54750 [A] 22608: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 54337: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 54337: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886071} against packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 54337: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363372} against packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 54337:  for partial match
+2020-12-05 18:59:50 DEBUG:[CENSOR] Synchronizing a TCB ({'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363373}) on packet TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 54337:  
+2020-12-05 18:59:50 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 6010: 
+2020-12-05 18:59:50 DEBUG:[SERVER] TCP 172.17.0.3:54750 --> 172.17.0.4:30617 [A] 54336: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363373} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 6010: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886071} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 6010: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363373} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 6010: 
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 54750, 'dport': 30617, 'seq': 1450363373} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 6010:  for partial match
+2020-12-05 18:59:50 DEBUG:[CENSOR] Checking {'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886071} against packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 6010:  for partial match
+2020-12-05 18:59:50 DEBUG:[CENSOR] Synchronizing a TCB ({'src': '172.17.0.4', 'dst': '172.17.0.2', 'sport': 30617, 'dport': 54750, 'seq': 4102886072}) on packet TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [A] 6010:  
+2020-12-05 18:59:50 DEBUG:[CLIENT] TCP 172.17.0.4:30617 --> 172.17.0.2:54750 [FPA] 56407: b'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n<html>\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>Directory listing for /?q=ultrasurf</title>\n</head>\n<body>\n<h1>Directory listing for /?q=ultrasurf</h1>\n<hr>\n<ul>\n</ul>\n<hr>\n</body>\n</html>\n'
+2020-12-05 18:59:50 DEBUG:[CLIENT] TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [FA] 22607: 
+2020-12-05 18:59:50 DEBUG:[CLIENT] TCP 172.17.0.2:54750 --> 172.17.0.4:30617 [A] 22619: 
+2020-12-05 18:59:50 DEBUG:[CLIENT] Sniffer stopping
+2020-12-05 18:59:50 DEBUG:[CLIENT] Fitness: 399
+2020-12-05 13:59:51 DEBUG:Evaluator shutting down server.
+2020-12-05 18:59:51 DEBUG:[SERVER] Server for 95tj9lkv shutting down.
+2020-12-05 18:59:52 DEBUG:[SERVER] Sniffer stopping
+2020-12-05 18:59:52 DEBUG:[SERVER] Server 95tj9lkv stopped.
+2020-12-05 13:59:53 DEBUG:Dockerized censor thread exiting
+2020-12-05 13:59:56 DEBUG:Storing fitness of [399.0] by: avg
+2020-12-05 13:59:56 INFO:[95tj9lkv] Fitness 399.0: [TCP:options-wscale:]-tamper{TCP:load:space_payload:1}-| \/ 
+2020-12-05 14:00:05 INFO:[399.0]
+2020-12-05 14:00:05 INFO:Trial 0: success! (fitness = 399)
+2020-12-05 14:00:05 INFO:Overall 1/1 = 100%
+2020-12-05 14:00:05 INFO:Exiting eval-only.

@@ -15,13 +15,13 @@ import actions.utils
 from layers.dns_layer import DNSLayer
 
 import random
-
+import urllib.parse
 
 # All supported tamper primitives
-SUPPORTED_PRIMITIVES = ["corrupt", "replace", "add", "compress"]
+SUPPORTED_PRIMITIVES = ["corrupt", "replace", "add", "compress", "space_payload"]
 
 # Tamper primitives we can mutate to by default
-ACTIVATED_PRIMITIVES = ["replace", "corrupt"]
+ACTIVATED_PRIMITIVES = ["replace", "corrupt", "space_payload"]
 
 
 class TamperAction(Action):
@@ -73,6 +73,9 @@ class TamperAction(Action):
             self.tamper_proto_str = "DNS"
             self.tamper_proto = actions.utils.string_to_protocol(self.tamper_proto_str)
             self.field = "qd"
+        if self.tamper_type == "space_payload":
+            self.field = "load"
+            self.tamper_value = 1 # default to adding a space after the first word
 
     def _mutate(self, environment_id):
         """
@@ -105,6 +108,21 @@ class TamperAction(Action):
                 new_value = packet.gen(self.tamper_proto_str, self.field)
             elif self.tamper_type == "add":
                 new_value = int(self.tamper_value) + int(old_value)
+            elif self.tamper_type == "space_payload":
+                if "GET%20" == old_value[:6]:
+                    new_value = "GET%20%20" + old_value[6:]
+                    # remove a space to compensate
+                    last_space = new_value.rindex("%20")
+                    new_value = new_value[:last_space] + new_value[last_space+3:]
+                # encoded_space = urllib.parse.quote(" ")
+                # words = old_value.split(encoded_space) # should be the payload
+                # insertion_index = int(self.tamper_value)
+                # if insertion_index < len(words):
+                #     words[insertion_index - 1] += encoded_space
+                #     new_value = encoded_space.join(words)
+                    # logger.debug(f"Old value: {urllib.parse.unquote(old_value)}, New value: {urllib.parse.unquote(new_value)}")
+                else:
+                    return packet
             elif self.tamper_type == "compress":
                 return packet.dns_decompress(logger)
         except NotImplementedError:
@@ -113,7 +131,6 @@ class TamperAction(Action):
         except Exception:
             # If an unexpected error has occurred
             return packet
-
         logger.debug("  - Tampering %s field `%s` (%s) by %s (to %s)" %
                      (self.tamper_proto_str, self.field, str(old_value), self.tamper_type, str(new_value)))
 
@@ -137,7 +154,7 @@ class TamperAction(Action):
         s = Action.__str__(self)
         if self.tamper_type == "corrupt":
             s += "{%s:%s:%s}" % (self.tamper_proto_str, self.field, self.tamper_type)
-        elif self.tamper_type in ["replace", "add"]:
+        elif self.tamper_type in ["replace", "add", "space_payload"]:
             s += "{%s:%s:%s:%s}" % (self.tamper_proto_str, self.field, self.tamper_type, self.tamper_value)
         elif self.tamper_type == "compress":
             s += "{%s:%s:compress}" % ("DNS", "qd", )
@@ -171,7 +188,6 @@ class TamperAction(Action):
             if "options" in self.field:
                 if not self.tamper_value:
                     self.tamper_value = '' # An empty string instead of an empty byte literal
-
             # tamper_value might be parsed as a string despite being an integer in most cases.
             # Try to parse it out here
             try:

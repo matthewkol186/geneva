@@ -1,0 +1,198 @@
+2020-12-05 14:00:39 DEBUG:Launching strategy evolution: --eval-only \/ test-type http --censor censor13 --log debug
+2020-12-05 14:00:39 INFO:Logging results to trials/2020-12-05_14:00:39/logs
+2020-12-05 14:00:40 DEBUG:Initializing docker environment.
+2020-12-05 14:00:56 DEBUG:Launching http plugin (run 1) for  \/ 
+2020-12-05 14:00:56 DEBUG:docker exec --privileged server_main netstat -ano
+2020-12-05 14:00:57 DEBUG:Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+
+2020-12-05 14:00:57 DEBUG:Testing if port 80 is open in the docker container
+2020-12-05 14:00:57 DEBUG:Using port 80
+2020-12-05 14:00:57 DEBUG:Running standalone plugin.
+2020-12-05 14:00:57 DEBUG:Evaluator: running server inside docker
+2020-12-05 14:00:57 DEBUG: Starting censor censor13 with driver
+2020-12-05 14:00:57 DEBUG:docker exec --privileged censor_main python code/censors/censor_driver.py --censor censor13 --environment-id canrdr2k --output-directory trials/2020-12-05_14:00:39 --port 60638 --log debug --forbidden ultrasurf --queue 185
+2020-12-05 14:00:57 DEBUG:docker exec --privileged server_main python code/plugins/plugin_server.py --test-type http --test-type http --strategy  --log debug --output-directory trials/2020-12-05_14:00:39 --port 60638 --censor censor13 --workers 1 --bad-word ultrasurf --runs 1 --fitness-by avg --wait-for-shutdown --environment-id canrdr2k --no-engine
+2020-12-05 14:00:57 DEBUG:Evaluator waiting for confirmation of server startup
+2020-12-05 19:01:03 DEBUG:[CENSOR] Censor created to port 60638 on queue 185
+2020-12-05 19:01:03 DEBUG:[CENSOR] Censor initializing.
+2020-12-05 19:01:03 DEBUG:[CENSOR] Censor iptables added
+2020-12-05 19:01:03 DEBUG:[CENSOR] Censor binding
+2020-12-05 19:01:03 DEBUG:[CENSOR] Censor bound
+2020-12-05 19:01:03 DEBUG:[SERVER] Launching http server
+2020-12-05 19:01:03 DEBUG:[SERVER] Sniffer starting to port 60638
+2020-12-05 19:01:03 DEBUG:[SERVER] Monitoring for server startup on port 60638
+2020-12-05 19:01:03 DEBUG:[SERVER] Waiting for server port binding
+2020-12-05 19:01:03 DEBUG:[SERVER] Server ready.
+2020-12-05 14:01:03 DEBUG:Evaluator: Server ready.
+2020-12-05 14:01:03 DEBUG:docker exec --privileged client_main python code/plugins/plugin_client.py --server 172.17.0.4 --test-type http --strategy " \/ " --log debug --output-directory trials/2020-12-05_14:00:39 --port 60638 --censor censor13 --workers 1 --bad-word ultrasurf --runs 1 --fitness-by avg --server 172.17.0.4 --wait-for-censor --host-header '' --injected-http-contains '' --environment-id canrdr2k
+2020-12-05 19:01:06 DEBUG:[CLIENT] Launching http
+2020-12-05 19:01:06 DEBUG:[CLIENT] Sniffer starting to port 60638
+2020-12-05 19:01:06 DEBUG:[ENGINE] Engine created with strategy \/ (ID canrdr2k) to port 60638
+2020-12-05 19:01:06 DEBUG:[ENGINE] Configuring iptables rules
+2020-12-05 19:01:06 DEBUG:[ENGINE] iptables -A OUTPUT -p tcp --dport 60638 -j NFQUEUE --queue-num 2
+2020-12-05 19:01:06 DEBUG:[ENGINE] iptables -A INPUT -p tcp --sport 60638 -j NFQUEUE --queue-num 1
+2020-12-05 19:01:06 DEBUG:[ENGINE] iptables -A OUTPUT -p udp --dport 60638 -j NFQUEUE --queue-num 2
+2020-12-05 19:01:06 DEBUG:[ENGINE] iptables -A INPUT -p udp --sport 60638 -j NFQUEUE --queue-num 1
+2020-12-05 19:01:06 DEBUG:[ENGINE] NFQueue Initialized after 0
+2020-12-05 19:01:06 DEBUG:[CENSOR] Writing ready file to /code/trials/2020-12-05_14:00:39/flags/canrdr2k.censor_ready
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.2:2222 --> 172.17.0.4:60638 [S] 27503: b'checking'
+2020-12-05 19:01:07 DEBUG:[CENSOR] Censor ready.
+2020-12-05 19:01:07 DEBUG:[CENSOR] Writing ready file to /code/trials/2020-12-05_14:00:39/flags/canrdr2k.censor_ready
+2020-12-05 19:01:07 DEBUG:[CENSOR] Censor ready.
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.2:2222 --> 172.17.0.4:60638 [S] 27503: b'checking'
+2020-12-05 19:01:07 DEBUG:[CLIENT] STARTING HTTP CLIENT....
+2020-12-05 19:01:07 DEBUG:[ENGINE] Received outbound packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [S] 28768: 
+2020-12-05 19:01:07 DEBUG:[ENGINE] Sending packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [S] 28768: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [S] 28768: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Making a new TCB for packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [S] 28768: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Synchronizing a TCB ({'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 35850, 'dport': 60638, 'seq': 4239316426}) on packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [S] 28768:  
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [S] 28767: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [SA] 61306: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 35850, 'dport': 60638, 'seq': 4239316426} against packet TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [SA] 61306: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] No TCB matches packet.
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [S] 28768: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.4:60638 --> 172.17.0.3:35850 [SA] 22616: 
+2020-12-05 19:01:07 DEBUG:[ENGINE] Received packet: TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [SA] 61306: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [SA] 61306: 
+2020-12-05 19:01:07 DEBUG:[ENGINE] Received outbound packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [A] 6762: 
+2020-12-05 19:01:07 DEBUG:[ENGINE] Sending packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [A] 6762: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [A] 6762: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 35850, 'dport': 60638, 'seq': 4239316426} against packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [A] 6762: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [A] 6761: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [A] 6762: 
+2020-12-05 19:01:07 DEBUG:[ENGINE] Received outbound packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [PA] 41046: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 19:01:07 DEBUG:[ENGINE] Sending packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [PA] 41046: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 19:01:07 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [PA] 41046: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 19:01:07 DEBUG:[CENSOR] Checking {'src': '172.17.0.2', 'dst': '172.17.0.4', 'sport': 35850, 'dport': 60638, 'seq': 4239316426} against packet TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [PA] 41046: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 19:01:07 DEBUG:[CENSOR] Packet triggered censor: TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [PA] 41046: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 19:01:07 DEBUG:[CENSOR] Marking IP 172.17.0.2 for dropping...
+2020-12-05 19:01:07 DEBUG:[CENSOR] Marking IP 172.17.0.4 for dropping...
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [PA] 41046: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[ENGINE] Received packet: TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 7375: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 ERROR:[CLIENT] Connection RST.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 677, in urlopen
+    chunked=chunked,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 426, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 421, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/local/lib/python3.6/http/client.py", line 1379, in getresponse
+    response.begin()
+  File "/usr/local/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/local/lib/python3.6/http/client.py", line 272, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/local/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 727, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/retry.py", line 410, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/packages/six.py", line 734, in reraise
+    raise value.with_traceback(tb)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 677, in urlopen
+    chunked=chunked,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 426, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 421, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/local/lib/python3.6/http/client.py", line 1379, in getresponse
+    response.begin()
+  File "/usr/local/lib/python3.6/http/client.py", line 311, in begin
+    version, status, reason = self._read_status()
+  File "/usr/local/lib/python3.6/http/client.py", line 272, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/local/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/code/plugins/http/client.py", line 86, in run
+    res = s.send(req, timeout=3)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 7375: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] Plugin client has finished.
+2020-12-05 19:01:07 DEBUG:[CLIENT] Initiating fitness adjustment
+2020-12-05 19:01:07 DEBUG:[ENGINE] Shutting down NFQueue
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] 7452: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 7375: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 7375: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] 7452: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] 7452: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 7375: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] 7452: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 7375: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Inbound packet to censor: TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 3991: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] Content from a flagged IP detected 172.17.0.4...
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [R] 7452: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.3:35850 --> 172.17.0.4:60638 [PA] 41045: b"GET /?q=ultrasurf HTTP/1.1\r\nAccept-Encoding: identity\r\nHost: ''\r\n\r\n"
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.4:60638 --> 172.17.0.3:35850 [R] 3990: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] 61335: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] 61334: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] 61334: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] 61335: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] 61334: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] 61335: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] 61334: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] 61335: 
+2020-12-05 19:01:07 DEBUG:[SERVER] TCP 172.17.0.2:35850 --> 172.17.0.4:60638 [R] 61334: 
+2020-12-05 19:01:07 DEBUG:[CENSOR] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] None: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.3:60638 --> 172.17.0.2:35850 [R] 61335: 
+2020-12-05 19:01:07 DEBUG:[CLIENT] TCP 172.17.0.4:60638 --> 172.17.0.2:35850 [R] 3991: 
+2020-12-05 19:01:09 DEBUG:[ENGINE] Configuring iptables rules
+2020-12-05 19:01:09 DEBUG:[ENGINE] iptables -D OUTPUT -p tcp --dport 60638 -j NFQUEUE --queue-num 2
+2020-12-05 19:01:09 DEBUG:[ENGINE] iptables -D INPUT -p tcp --sport 60638 -j NFQUEUE --queue-num 1
+2020-12-05 19:01:09 DEBUG:[ENGINE] iptables -D OUTPUT -p udp --dport 60638 -j NFQUEUE --queue-num 2
+2020-12-05 19:01:09 DEBUG:[ENGINE] iptables -D INPUT -p udp --sport 60638 -j NFQUEUE --queue-num 1
+2020-12-05 19:01:09 DEBUG:[CLIENT] Sniffer stopping
+2020-12-05 19:01:09 DEBUG:[CLIENT] Fitness: -360
+2020-12-05 14:01:10 DEBUG:Evaluator shutting down server.
+2020-12-05 19:01:10 DEBUG:[SERVER] Server for canrdr2k shutting down.
+2020-12-05 19:01:11 DEBUG:[SERVER] Sniffer stopping
+2020-12-05 19:01:11 DEBUG:[SERVER] Server exited: Command '['python3', '-m', 'http.server', '60638']' died with <Signals.SIGTERM: 15>.
+2020-12-05 19:01:11 DEBUG:[SERVER] Server canrdr2k stopped.
+2020-12-05 14:01:12 DEBUG:Dockerized censor thread exiting
+2020-12-05 14:01:15 DEBUG:Storing fitness of [-360.0] by: avg
+2020-12-05 14:01:15 INFO:[canrdr2k] Fitness -360.0:  \/ 
+2020-12-05 14:01:24 INFO:[-360.0]
+2020-12-05 14:01:24 INFO:Trial 0: failure! (fitness = -360)
+2020-12-05 14:01:24 INFO:Overall 0/1 = 0%
+2020-12-05 14:01:24 INFO:Exiting eval-only.

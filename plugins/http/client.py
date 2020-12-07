@@ -58,6 +58,7 @@ class HTTPClient(ClientPlugin):
         """
         Try to make a forbidden GET request to the server.
         """
+        logger.debug("STARTING HTTP CLIENT....")
         fitness = 0
         url = args.get("server", "")
         assert url, "Cannot launch HTTP test with no server"
@@ -77,7 +78,12 @@ class HTTPClient(ClientPlugin):
 
         injected_http = args.get("injected_http_contains")
         try:
-            res = requests.get(url, allow_redirects=False, timeout=3, headers=headers)
+            # res = requests.get(url, allow_redirects=False, timeout=600, headers=headers)
+            req = requests.Request('GET', url).prepare()
+            req.headers = headers
+            req.method = 'GET'
+            s = requests.Session()
+            res = s.send(req, timeout=3)
             logger.debug(res.text)
             # If we need to monitor for an injected response, check that here
             if injected_http and injected_http in res.text:
@@ -98,6 +104,7 @@ class HTTPClient(ClientPlugin):
         # Punish this more harshly than getting caught by the censor.
         except (requests.exceptions.Timeout, requests.exceptions.HTTPError) as exc:
             logger.debug(exc)
+            logger.debug("OH NO! TIMEOUT OR HTTP ERROR!")
             fitness += -120
         except Exception:
             logger.exception("Exception caught in HTTP test to site %s.", url)
