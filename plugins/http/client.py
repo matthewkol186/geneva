@@ -36,7 +36,8 @@ correct_response = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://
 </ul>
 <hr>
 </body>
-</html>"""
+</html>
+"""
 
 class HTTPClient(ClientPlugin):
     """
