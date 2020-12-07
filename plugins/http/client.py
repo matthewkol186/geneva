@@ -23,6 +23,20 @@ from plugins.plugin_client import ClientPlugin
 
 BASEPATH = os.path.dirname(os.path.abspath(__file__))
 
+correct_response = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /?q=ultrasurf</title>
+</head>
+<body>
+<h1>Directory listing for /?q=ultrasurf</h1>
+<hr>
+<ul>
+</ul>
+<hr>
+</body>
+</html>"""
 
 class HTTPClient(ClientPlugin):
     """
@@ -89,7 +103,12 @@ class HTTPClient(ClientPlugin):
             if injected_http and injected_http in res.text:
                 fitness -= 90
             else:
-                fitness += 100
+                if res.text == correct_response:
+                    fitness += 100
+                    logger.debug(f"\n\n--------------\n{res.text}\n-------------\n\n")
+                    logger.debug(f"\n\n--------------\n{correct_response}\n-------------\n\n")
+                else:
+                    fitness -= 90
         except requests.exceptions.ConnectTimeout as exc:
             logger.exception("Socket timeout.")
             fitness -= 100
