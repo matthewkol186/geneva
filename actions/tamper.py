@@ -18,10 +18,12 @@ import random
 import urllib.parse
 
 # All supported tamper primitives
-SUPPORTED_PRIMITIVES = ["corrupt", "replace", "add", "compress", "space_payload"]
+# SUPPORTED_PRIMITIVES = ["corrupt", "replace", "add", "compress", "space_payload"]
+SUPPORTED_PRIMITIVES = ["corrupt", "replace", "add", "compress"]
 
 # Tamper primitives we can mutate to by default
-ACTIVATED_PRIMITIVES = ["replace", "corrupt", "space_payload"]
+# ACTIVATED_PRIMITIVES = ["replace", "corrupt", "space_payload"]
+ACTIVATED_PRIMITIVES = ["replace", "corrupt"]
 
 
 class TamperAction(Action):
